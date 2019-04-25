@@ -24,23 +24,26 @@ The Docker architecture uses a client-server model and comprises of the Docker C
 
 The Docker Client
 -----------------
-The Docker client enables users to interact with Docker. The Docker client can reside on the same host as the daemon or connect to a daemon on a remote host. A docker client can communicate with more than one daemon. The Docker client provides a command line interface (CLI) that allows you to issue build, run, and stop application commands to a Docker daemon.
-
-The main purpose of the Docker Client is to provide a means to direct the pull of images from a registry and to have it run on a Docker host. Common commands issued by a client are:
-
+The Docker client enables users to interact with Docker. The docker client is used in the terminal to interact with the Converge application.
+The docker client allows the user to run commands such as:
 * docker build
 * docker pull
 * docker run
+* docker create
+* docker stop
 
 The DockerHost
 ------------------
-The Docker host provides a complete environment to execute and run applications. It comprises of the Docker daemon, Images, Containers, Networks, and Storage. As previously mentioned, the daemon is responsible for all container-related actions and receives commands via the CLI or the REST API. It can also communicate with other daemons to manage its services. The Docker daemon pulls and builds container images as requested by the client. Once it pulls a requested image, it builds a working model for the container by utilizing a set of instructions known as a build file. The build file can also include instructions for the daemon to pre-load other components prior to running the container, or instructions to be sent to the local command line once the container is built.
+The Docker host provides a complete environment to execute and run applications. It comprises of the Docker daemon, Images, Containers, Networks, and Storage.
+The daemon is responsible for all container-related actions and receives commands via the CLI or the REST API. 
 
-Docker Objects
-Various objects are used in the assembling of your application. The main requisite Docker objects are:
+How the Docker Daemon is used in Converge
+When a user types `docker run command` to start up the container from the converge docker image, the docker client  translates that command into http API call, sends it to docker daemon which then evaluates the request, talks to underlying operating system and provisions the container.
 
+Secondly, the Docker daemon pulls and builds container images as requested by the docker client. Once the image is pulled, a working model for the container is built through  using a set of instructions callled the build file.
 
-The following screenshots illustrate the use of Docker within the three Converge applications
+Docker Images
+The docker image is created from the Converge Docker files which are shown in the screenshots below:
 --------  -----------------------
 The Front End
 --------  -----------------------
@@ -65,3 +68,12 @@ The Mobile Application
 The Docker file
 ![Alt text](images/Dockerfile.png)
 --------  -----------------------
+
+A user runs the `docker build command` using the docker client to generate an image from the docker file.
+The created image can still be viewed by running `docker images` in the docker client
+The docker image is an inert, immutable, file that's essentially a snapshot of a container created with the build command, and produces a container once started.
+
+The Registry
+Once the image is created, it is stored in a Docker registry such as `registry.hub.docker.com` `and gcr.io`
+The registry is an open source and highly scalable server side application that stores and lets one distribute docker images.
+
