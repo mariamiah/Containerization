@@ -73,7 +73,8 @@ A user runs the `docker build command` using the docker client to generate an im
 The created image can still be viewed by running `docker images` in the docker client
 The docker image is an inert, immutable, file that's essentially a snapshot of a container created with the build command, and produces a container once started.
 
-The Registry
+The Docker Registry
+-------------------
 Once the image is created, it is stored in a Docker registry such as `registry.hub.docker.com` `and gcr.io`
 The registry is an open source and highly scalable server side application that stores and lets one distribute docker images.
 
